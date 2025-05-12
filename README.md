@@ -91,7 +91,6 @@ While the vault meets core requirements, the following advanced or optional feat
 
 
 
-ChatGPT said:
 To protect users from fake Squads multisig front-ends, the vault program should always check that critical actions like updating prices or initializing the vault can only be done by a known and verified signer. This usually means using a PDA (program-derived address) that’s tied to the actual Squads multisig program. These addresses should be predictable and shown clearly in the UI so users can verify them. You can also bake in checks like “is this admin the expected signer?” to catch anyone trying to spoof authority through a sketchy front-end.
 
 Fake or compromised transaction simulations are another risk, especially when users rely on simulations to decide whether to approve a transaction. To deal with that, it’s important to validate everything on-chain. For example, even if the frontend looks fine, if a user tries to deposit zero or withdraw too much, the on-chain program should throw an error. You can even include guards like pre-instructions or hash checks to confirm that what the user simulated is actually what they’re signing and sending to the network.
