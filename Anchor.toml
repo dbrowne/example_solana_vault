@@ -1,0 +1,16 @@
+[programs.localnet]
+vault = "Ep3XMXR7G1EcQNQRgoDCEMoE8XXZKMsUbAQ8hZxkxo3T"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test ="./run-tests.sh"
+
+
+
+[test.validator]
+programs = [
+  { name = "spl_token", address = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" }
+]
