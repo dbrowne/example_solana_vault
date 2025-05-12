@@ -28,6 +28,9 @@ pub enum CustomError {
 /// - `admin`: Only address allowed to call admin functions like `update_price`.
 /// - `receipt_token_price`: Price per receipt token in fixed-point (1e6 scale).
 /// - `last_updated`: Unix timestamp of last price update.
+///
+/// If this were a prod application, we would have an enum or flag defined here to track asset
+/// classes
 #[account]
 pub struct VaultState {
     pub admin: Pubkey,
