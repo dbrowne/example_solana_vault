@@ -276,3 +276,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+
+
+# Solana stuffs
+.anchor
+node_modules

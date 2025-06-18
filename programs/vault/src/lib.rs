@@ -50,6 +50,11 @@ pub struct VaultDeposit {
 pub mod vault {
     use super::*;
 
+    pub fn initialize_vault_accounts(_ctx: Context<InitializeVaultAccounts>) -> Result<()> {
+        // No logic needed — accounts are created by Anchor with correct seeds and ownership
+        Ok(())
+    }
+
     /// For testing: directly set `last_updated` to simulate backdated growth
     pub fn set_vault_last_updated(ctx: Context<SetVaultLastUpdated>, new_ts: i64) -> Result<()> {
         ctx.accounts.vault_state.last_updated = new_ts;
@@ -301,3 +306,52 @@ pub struct SetVaultLastUpdated<'info> {
     pub vault_state: Account<'info, VaultState>,
     pub admin: Signer<'info>,
 }
+
+
+#[derive(Accounts)]
+pub struct InitializeVaultAccounts<'info> {
+    #[account(mut)]
+    pub admin: Signer<'info>,
+
+    #[account(
+        seeds = [b"vault"],
+        bump
+    )]
+    pub vault_state: Account<'info, VaultState>,
+
+
+    #[account(
+        init,
+        payer = admin,
+        seeds = [b"vault_usdc", vault_state.key().as_ref()],
+        bump,
+        token::mint = usdc_mint,
+        token::authority = vault_auth
+    )]
+    pub vault_usdc: Account<'info, TokenAccount>,
+
+    #[account(
+        init,
+        payer = admin,
+        seeds = [b"vault_deposit", vault_state.key().as_ref()],
+        bump,
+        token::mint = receipt_mint,
+        token::authority = vault_auth
+    )]
+    pub vault_deposit: Account<'info, TokenAccount>,
+
+    pub usdc_mint: Account<'info, Mint>,
+    pub receipt_mint: Account<'info, Mint>,
+
+    #[account(
+        seeds = [b"auth", vault_state.key().as_ref()],
+        bump
+    )]
+    /// CHECK: This is a PDA used as the authority for vault accounts.
+    pub vault_auth: AccountInfo<'info>,
+
+    pub token_program: Program<'info, Token>,
+    pub system_program: Program<'info, System>,
+    pub rent: Sysvar<'info, Rent>,
+}
+

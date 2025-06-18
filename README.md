@@ -29,16 +29,33 @@ receipt_token_price += receipt_token_price * rate * elapsed / seconds_per_year;
 
 ## 🧪 Test Coverage
 
-| Case                                         | Status |
-|---------------------------------------------|--------|
-| Deposit and mint receipt tokens             | ✅     |
-| Full withdrawal with interest               | ✅     |
-| Interest accrual via `update_price`         | ✅     |
-| Zero-value deposit and withdrawal           | ✅     |
-| Over-withdrawal protection                  | ✅     |
-| Unauthorized user cannot withdraw           | ✅     |
-| Admin-only control on price manipulation    | ✅     |
-| Large-value deposit and withdrawal          | ✅     |
+| Case                                                                  | Status |
+|-----------------------------------------------------------------------|--------|
+| Deposit and mint receipt tokens                                       | ✅     |
+| Full withdrawal with interest                                         | ✅     |
+| Interest accrual via `update_price`                                   | ✅     |
+| Zero-value deposit and withdrawal                                     | ✅     |
+| Over-withdrawal protection                                            | ✅     |
+| Unauthorized user cannot withdraw                                     | ✅     |
+| Admin-only control on price manipulation                              | ✅     |
+| Large-value deposit and withdrawal                                    | ✅     |
+| Forged PDA Attacks: Reject vault auth PDA                             | ✅     |
+| Forged PDA Attacks: Reject Spoofed Signer for withdraw                | ✅     |
+| Forged PDA Attacks: Reject Account substitution with wrong token mint | ✅     |
+| Cross-Program Invocation Exploits: Reject Malicious CPI Calls         | ✅     |
+| Cross-Program Invocation Exploits: Reject unauth prog auth usage      | ✅     |
+| Cross-Program Invocation Exploits: Reject reentry through CPI         | ✅     |
+| Cross-Program Invocation Exploits: Reject reentry through CPI         | ✅     |
+| Front-end Misdirection : tranaction param manipulation                | ✅     |
+| Front-end Misdirection : Recipient address manipulation               | ✅     |
+| Front-end Misdirection : Price protection   demo                      | ✅     |
+| Addl Sec validations : Unauthorized admin actions                     | ✅     |
+| Addl Sec validations : Integer overflow                               | ✅     |
+| Addl Sec validations : Zero amount transactions                       | ✅     |
+| Best Practices : Validate PDA derivations                             | ✅     |
+| Best Practices : Enforce token ownership                              | ✅     |
+| Best Practices : Validate account initialization order                | ✅     |
+
 
 ---
 
@@ -91,7 +108,6 @@ Overall, the implementation covers a variety of test cases: normal deposits and 
 ## ⏳ Deferred or Excluded Features
 
 ### 🔒 Security Tests (Deferred)
-- Forged PDA or spoofed signer simulations
 - Cross-program invocation exploits
 - Front-end misdirection scenarios
 
